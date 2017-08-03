@@ -4,6 +4,7 @@ import base64
 import tempfile
 import StringIO
 
+
 def merge(pdf_base64_encoded_list = None):
 
     pdf_temporaty_file_list = []
@@ -12,10 +13,10 @@ def merge(pdf_base64_encoded_list = None):
         f.write(base64.urlsafe_b64decode(str(i)))
         pdf_temporaty_file_list.append(f)
 
-    merger = PdfFileMerger()
+    merger = PdfFileMerger(strict=False)
 
     for pdf_file in pdf_temporaty_file_list:
-        merger.append(PdfFileReader(pdf_file))
+        merger.append(PdfFileReader(pdf_file, strict=False))
 
     pdf_merged_buffer = StringIO.StringIO()
     merger.write(pdf_merged_buffer)
