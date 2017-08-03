@@ -1,0 +1,15 @@
+FROM python:2.7
+
+COPY requirements.txt ./
+RUN pip install uwsgi
+RUN pip install -r requirements.txt
+
+COPY ./app /webapp
+
+ENV HOME /webapp
+WORKDIR /webapp
+
+# Expose port 8000 for uwsgi
+EXPOSE 8000
+
+ENTRYPOINT ["uwsgi", "--http", "0.0.0.0:8000", "--module", "app:app", "--processes", "2", "--threads", "8"]
