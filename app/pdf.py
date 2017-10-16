@@ -2,7 +2,7 @@
 from PyPDF2 import PdfFileMerger, PdfFileReader
 import base64
 import tempfile
-import StringIO
+from io import StringIO
 import magic
 
 
